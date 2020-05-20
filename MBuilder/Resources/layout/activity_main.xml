@@ -1,0 +1,28 @@
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:minWidth="25px"
+    android:minHeight="25px"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/linearLayout1">
+    <Button
+        android:text="NEW"
+        android:textColor="@android:color/black"
+        android:textSize="50sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/newProject"
+        android:height="400dp"
+        android:backgroundTint="#ffc62828" />
+    <Button
+        android:text="LOAD"
+        android:textColor="@android:color/black"
+        android:textSize="50sp"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/load"
+        android:backgroundTint="#fffbc02d" />
+</LinearLayout>

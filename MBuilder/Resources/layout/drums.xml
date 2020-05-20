@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:minWidth="25px"
+    android:minHeight="25px"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/relativeLayout1" >
+    <TextView
+        android:text="DRUMS"
+        android:id="@+id/name"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="True"
+        android:height="100dp"
+        android:gravity="center"
+        android:textSize="30sp" />
+    <Button
+        android:text="DOWNLOADED"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/downloaded"
+        android:layout_below="@+id/name"
+        android:layout_centerHorizontal="false"
+        android:height="125dp" />
+    <Button
+        android:text="MARKET"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/market"
+        android:layout_below="@+id/downloaded" 
+        android:layout_centerHorizontal="false"
+        android:height="125dp" />
+    <Button
+        android:text="IMPORT"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/importTrack"
+        android:layout_below="@+id/market"
+        android:layout_centerHorizontal="false"
+        android:height="125dp" />
+    <Button
+        android:text="BPM"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/bpm"
+        android:layout_below="@+id/importTrack"
+        android:height="125dp"
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@id/play" />
+    <Button
+        android:text="PLAY"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/play"
+        android:layout_below="@+id/importTrack"
+        android:height="125dp"
+        android:layout_centerHorizontal="true"
+        android:width="125dp" />
+    <Button
+        android:text="KEY"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/key"
+        android:layout_below="@+id/importTrack"
+        android:height="125dp"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@id/play" />
+    <TextView
+        android:text="None selected"
+        android:id="@+id/selected"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/play"
+        android:gravity="center"
+        android:textSize="15sp" />
+</RelativeLayout>

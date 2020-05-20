@@ -1,0 +1,69 @@
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:minWidth="25px"
+    android:minHeight="25px"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/relativeLayout1">
+    <TextView
+        android:text="IMPORT"
+        android:id="@+id/name"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="True"
+        android:height="100dp"
+        android:gravity="center"
+        android:textSize="30sp" />
+    <Button
+        android:text="BROWSE"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/browse"
+        android:layout_below="@+id/name" />
+    <EditText
+        android:inputType="number"
+        android:id="@+id/bpm"
+        android:layout_width="90dp"
+        android:layout_height="75dp"
+        android:layout_toRightOf="@+id/bpmText"
+        android:layout_alignBottom="@+id/bpmText"
+        android:layout_alignParentRight="true"
+        android:gravity="center"
+        android:textSize="20sp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:width="100dp"
+        android:height="75dp"
+        android:id="@+id/bpmText"
+        android:layout_below="@+id/browse"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:text="BPM:" />
+    <Spinner
+        android:id="@+id/key"
+        android:layout_width="90dp"
+        android:layout_height="75dp"
+        android:layout_toRightOf="@+id/keyText"
+        android:layout_alignBottom="@+id/keyText"
+        android:layout_alignParentRight="true"
+        android:gravity="center"
+        android:textSize="20sp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:width="100dp"
+        android:height="75dp"
+        android:id="@+id/keyText"
+        android:layout_below="@+id/bpmText"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:text="KEY:" />
+    <Button
+        android:text="DONE"
+        android:layout_width="fill_parent"
+        android:layout_height="200dp"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/done"/>
+</RelativeLayout>

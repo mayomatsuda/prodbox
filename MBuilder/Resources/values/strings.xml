@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">MBuilder</string>
+    <string name="action_settings">Settings</string>
+    <string-array name="key_array">
+      <item>C</item>
+      <item>C#</item>
+      <item>D</item>
+      <item>D#</item>
+      <item>E</item>
+      <item>F</item>
+      <item>F#</item>
+      <item>G</item>
+      <item>G#</item>
+      <item>A</item>
+      <item>A#</item>
+      <item>B</item>
+      <item>N/A</item>
+    </string-array>
+    <string-array name="type_array">
+      <item>Bass</item>
+      <item>Drums</item>
+      <item>Instruments</item>
+      <item>Vocals</item>
+    </string-array>
+</resources>

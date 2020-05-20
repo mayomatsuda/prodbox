@@ -1,0 +1,95 @@
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:minWidth="25px"
+    android:minHeight="25px"
+    android:weightSum="2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/relativeLayout1">
+    <Button
+        android:text="DRUMS"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/drums"
+        android:height="120dp" />
+    <TextView
+        android:text="None selected"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/drums"
+        android:id="@+id/drumsText"
+        android:height="120dp"
+        android:gravity="center" />
+    <Button
+        android:text="BASS"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/drums"
+        android:id="@+id/bass"
+        android:height="120dp" />
+    <TextView
+        android:text="None selected"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/drums"
+        android:layout_below="@id/drumsText"
+        android:id="@+id/bassText"
+        android:height="120dp"
+        android:gravity="center" />
+    <Button
+        android:text="INSTRUMENTS"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bass"
+        android:id="@+id/vocals"
+        android:height="120dp" />
+    <TextView
+        android:text="None selected"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/drums"
+        android:layout_below="@id/bassText"
+        android:id="@+id/vocalsText"
+        android:height="120dp"
+        android:gravity="center" />
+    <Button
+        android:text="INSTRUMENTS"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/vocals"
+        android:id="@+id/instruments"
+        android:height="120dp" />
+    <TextView
+        android:text="None selected"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/drums"
+        android:layout_below="@id/vocalsText"
+        android:id="@+id/instrumentsText"
+        android:height="120dp"
+        android:gravity="center" />
+    <Button
+        android:text="SET SYNCED TRACK BPM"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/instruments"
+        android:id="@+id/options"
+        android:height="70dp" />
+    <Button
+        android:text="LISTEN"
+        android:layout_width="150dp"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/options"
+        android:layout_alignParentLeft="true"
+        android:id="@+id/listen"
+        android:backgroundTint="#ffc62828" />
+    <Button
+        android:text="SAVE"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/options"
+        android:layout_toRightOf="@id/listen"
+        android:id="@+id/save"
+        android:backgroundTint="#fffbc02d" />
+</RelativeLayout>
