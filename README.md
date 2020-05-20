@@ -6,6 +6,7 @@ tracks to any BPM, sync entire songs, and choose between a variety of tracks.
 
 ### Planned developments:
 * Fully implement ability to import tracks from device
+* Save/load feature
 * UI overhaul
 * Marketplace for uploading/downloading tracks
 
