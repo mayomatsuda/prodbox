@@ -16,3 +16,7 @@ licensing concerns.
 If you'd like to add your own track, the file format is `<name with no dashes-key-bpm-type>`. Just add any .wav file
 named as such to the project Assets. For example, `<drum beat-c#m-110-d>`. The types are *b* for bass, *d* for drums,
 and *i* for instruments.
+
+### Dependencies:
+* Xamarin
+* FilePicker 2.1.34 (from [NuGet](https://www.nuget.org/packages/Xamarin.Plugin.FilePicker/2.1.34))
