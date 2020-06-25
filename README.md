@@ -5,7 +5,7 @@ tracks to any BPM, sync entire songs, and choose between a variety of tracks.
 <img src="https://github.com/mayomatsuda/prodbox/blob/master/Screenshots/sc1.jpg" alt="drawing" width="200"/>   <img src="https://github.com/mayomatsuda/prodbox/blob/master/Screenshots/sc2.jpg" alt="drawing" width="200"/>   <img src="https://github.com/mayomatsuda/prodbox/blob/master/Screenshots/sc3.jpg" alt="drawing" width="200"/>
 
 ### Planned developments:
-* Fully implement ability to import tracks from device
+* ~~Fully implement ability to import tracks from device~~ (implemented)
 * Save/load feature
 * UI overhaul
 * Marketplace for uploading/downloading tracks
