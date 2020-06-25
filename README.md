@@ -20,4 +20,3 @@ and *i* for instruments.
 
 ### Dependencies:
 * Xamarin
-* FilePicker 2.1.34 (from [NuGet](https://www.nuget.org/packages/Xamarin.Plugin.FilePicker/2.1.34))
