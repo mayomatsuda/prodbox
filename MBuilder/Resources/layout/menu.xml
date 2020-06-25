@@ -85,7 +85,7 @@
         android:id="@+id/listen"
         android:backgroundTint="#ffc62828" />
     <Button
-        android:text="SAVE"
+        android:text="SAVE (COMING SOON)"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_below="@id/options"

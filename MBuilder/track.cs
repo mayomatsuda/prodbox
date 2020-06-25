@@ -37,9 +37,6 @@ public class track
 
 	private int playid;
 
-	FileData file;
-	Context context;
-
 	public track(Java.IO.FileDescriptor filename, string filenameString, long l1, long l2)
 	{
 		songFile = filename;
@@ -64,8 +61,7 @@ public class track
 		}
 	}
 
-	// Second constructor for Imported files. Currently unused.
-	public track(string name, string path, FileData nFile, Context nContext)
+	public track(string nName, string path)
 	{
 		isFromStringPath = true;
 		songFileString = path;
@@ -73,14 +69,11 @@ public class track
 		isPrepped = false;
 		hasStarted = false;
 
-		name = null;
+		name = nName;
 		key = null;
 		bpm = 0;
 		defBPM = 0;
 		type = null;
-
-		file = nFile;
-		context = nContext;
 
 		sp = builder.Build();
 		id = sp.Load(songFileString, 1);

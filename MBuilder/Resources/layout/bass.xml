@@ -24,7 +24,7 @@
         android:layout_centerHorizontal="false"
         android:height="125dp" />
     <Button
-        android:text="MARKET"
+        android:text="MARKET (COMING SOON)"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/market"

@@ -21,30 +21,25 @@ namespace MBuilder
     [Activity(Label = "importFile")]
     class importInstruments : Activity
     {
-        private string path;
         private string name;
-        private FileData file;
+        private string customName = "";
         private int bpm;
-        private string key;
+        private string key = "na";
         private string type = "b";
+        private track[] tracks;
+        private string[] fileStrings;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.importFile);
 
-            Button browse = FindViewById<Button>(Resource.Id.browse);
-            browse.Click += async delegate
-            {
-                var fileImp = await CrossFilePicker.Current.PickFile();
-                if (fileImp != null)
-                {
-                    path = fileImp.FilePath;
-                    name = fileImp.FileName;
-                    file = fileImp;
-                    browse.Text = name;
-                }
-            };
+            tracks = openFiles();
+
+            Spinner browse = FindViewById<Spinner>(Resource.Id.browse);
+            browse.ItemSelected += new EventHandler<AdapterView.ItemSelectedEventArgs>(fileSpinner_ItemSelected);
+            var adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleSpinnerItem, fileStrings);
+            browse.Adapter = adapter;
 
             EditText bpmEnter = FindViewById<EditText>(Resource.Id.bpm);
             bpmEnter.KeyPress += (object sender, View.KeyEventArgs e) => {
@@ -53,14 +48,24 @@ namespace MBuilder
                 {
                     bpm = int.Parse(bpmEnter.Text);
                     e.Handled = true;
-                }};
+                }
+            };
 
             Spinner keySpinner = FindViewById<Spinner>(Resource.Id.key);
             keySpinner.ItemSelected += new EventHandler<AdapterView.ItemSelectedEventArgs>(keySpinner_ItemSelected);
-            var kadapter = ArrayAdapter.CreateFromResource(
-                    this, Resource.Array.key_array, Android.Resource.Layout.SimpleSpinnerItem);
+            var kadapter = ArrayAdapter.CreateFromResource(this, Resource.Array.key_array, Android.Resource.Layout.SimpleSpinnerItem);
             kadapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
             keySpinner.Adapter = kadapter;
+
+            EditText nameEnter = FindViewById<EditText>(Resource.Id.nameEnter);
+            nameEnter.KeyPress += (object sender, View.KeyEventArgs e) => {
+                e.Handled = false;
+                if (e.Event.Action == KeyEventActions.Down && e.KeyCode == Keycode.Enter)
+                {
+                    customName = nameEnter.Text;
+                    e.Handled = true;
+                }
+            };
 
             Button done = FindViewById<Button>(Resource.Id.done);
             done.Click += delegate
@@ -69,53 +74,58 @@ namespace MBuilder
             };
         }
 
+        private track[] openFiles()
+        {
+            track[] trackList = new track[100];
+            int count = 0;
+
+            var pathFile = Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryDownloads);
+            var absolutePath = pathFile.AbsolutePath;
+
+            foreach (string file in Directory.GetFiles(absolutePath))
+            {
+                if (file.Contains(".wav"))
+                {
+                    //try
+                    {
+                        track newTrack = new track(name, file);
+                        trackList[count] = newTrack;
+                        count++;
+                    }
+                    //catch { }
+                }
+            }
+
+            fileStrings = new string[count];
+            for (int i = 0; i < count; i++)
+            {
+                string[] currentFile = trackList[i].getSecond().Split("/");
+                fileStrings[i] = currentFile[currentFile.Length - 1];
+            }
+            return trackList;
+        }
+
         private void doneMethod()
         {
             try
             {
-                string filePath = null;
-                Android.Net.Uri uri = Android.Net.Uri.Parse(path);
-                Android.Net.Uri tUri = uri;
-                if (DocumentsContract.IsDocumentUri(this, uri))
+                foreach (track t in tracks)
                 {
-                    string docId = DocumentsContract.GetDocumentId(uri);
-                    if (uri.Authority.Equals("com.android.providers.media.documents"))
+                    if (t != null)
                     {
-                        string id = docId.Split(":")[1];
-                        string selection = MediaStore.Video.Media.InterfaceConsts.Id + "=" + id;
-                        filePath = getfilePath(MediaStore.Video.Media.ExternalContentUri, selection);
+                        if (t.getSecond().Contains(name))
+                        {
+                            if (customName == "") customName = name;
+                            track theTrack = new track(customName, t.getSecond());
+                            theTrack.setBPM(bpm);
+                            theTrack.setDefBPM(bpm);
+                            theTrack.setKey(key);
+                            theTrack.setType(type);
+                            menu.theSong.setInstruments(theTrack);
+                            break;
+                        }
                     }
-                    else if (uri.Authority.Equals("com.android.providers.downloads.documents"))
-                    {
-                        Android.Net.Uri contentUri = ContentUris.WithAppendedId(Android.Net.Uri.Parse("content://downloads/public_downloads"), long.Parse(docId));
-                        filePath = getfilePath(contentUri, null);
-                    }
                 }
-                else if (uri.Scheme.Equals("content", StringComparison.OrdinalIgnoreCase))
-                {
-                    filePath = getfilePath(uri, null);
-                }
-                else if (uri.Scheme.Equals("file", StringComparison.OrdinalIgnoreCase))
-                {
-                    filePath = uri.Path;
-                }
-
-                track theTrack = new track(name, filePath, file, Application.Context);
-                theTrack.setName(name);
-                try
-                {
-                    theTrack.setDefBPM(bpm);
-                    theTrack.setBPM(bpm);
-                }
-                catch
-                {
-                    theTrack.setDefBPM(1);
-                    theTrack.setBPM(1);
-                }
-                theTrack.setKey(key);
-                theTrack.setType(type);
-                
-                menu.theSong.setInstruments(theTrack);
             }
             catch
             {
@@ -131,24 +141,22 @@ namespace MBuilder
         private void keySpinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
         {
             Spinner spinner = (Spinner)sender;
-            key = string.Format ("{0}", spinner.GetItemAtPosition(e.Position));
-            if (key == "N/A") key = "na";
+            key = string.Format("{0}", spinner.GetItemAtPosition(e.Position));
             key = key.ToLower();
+            if (key == "N/A") key = "na";
         }
 
-        private string getfilePath(Android.Net.Uri uri, string selection)
+        private void fileSpinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
         {
-            string path = null;
-            var cursor = ContentResolver.Query(uri, null, selection, null, null);
-            if (cursor != null)
-            {
-                if (cursor.MoveToFirst())
-                {
-                    path = cursor.GetString(cursor.GetColumnIndex(MediaStore.Video.Media.InterfaceConsts.Data));
-                }
-                cursor.Close();
-            }
-            return path;
+            Spinner spinner = (Spinner)sender;
+            name = string.Format("{0}", spinner.GetItemAtPosition(e.Position));
+        }
+
+        protected override void OnStart()
+        {
+            base.OnStart();
+
+            if (instruments.hasStarted) menu.theSong.getInstruments().stop();
         }
     }
 }

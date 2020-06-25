@@ -15,10 +15,10 @@
         android:height="100dp"
         android:gravity="center"
         android:textSize="30sp" />
-    <Button
+    <Spinner
         android:text="BROWSE"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="75dp"
         android:id="@+id/browse"
         android:layout_below="@+id/name" />
     <EditText
@@ -60,10 +60,38 @@
         android:gravity="center"
         android:textSize="20sp"
         android:text="KEY:" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:width="100dp"
+        android:height="75dp"
+        android:id="@+id/nameText"
+        android:layout_below="@+id/keyText"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:text="NAME:" />
+    <EditText
+        android:id="@+id/nameEnter"
+        android:layout_width="90dp"
+        android:layout_height="75dp"
+        android:layout_toRightOf="@+id/nameText"
+        android:layout_alignBottom="@+id/nameText"
+        android:layout_alignParentRight="true"
+        android:gravity="center_vertical"
+        android:textSize="20sp" />
     <Button
         android:text="DONE"
         android:layout_width="fill_parent"
         android:layout_height="200dp"
         android:layout_alignParentBottom="true"
         android:id="@+id/done"/>
+    <TextView
+        android:text="Browsing for files in local storage 'Downloads' folder"
+        android:id="@+id/msg"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/done"
+        android:layout_below="@+id/nameText"
+        android:gravity="center"
+        android:textSize="12sp" />
 </RelativeLayout>
