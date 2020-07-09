@@ -13,8 +13,6 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Java.Security;
-using Plugin.FilePicker;
-using Plugin.FilePicker.Abstractions;
 
 namespace MBuilder
 {
@@ -28,6 +26,7 @@ namespace MBuilder
         private string type = "b";
         private track[] tracks;
         private string[] fileStrings;
+        private bool want = true;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -46,9 +45,12 @@ namespace MBuilder
                 e.Handled = false;
                 if (e.Event.Action == KeyEventActions.Down && e.KeyCode == Keycode.Enter)
                 {
-                    bpm = int.Parse(bpmEnter.Text);
+                    try { bpm = int.Parse(bpmEnter.Text); }
+                    catch { bpm = 0; }
+                    want = false;
                     e.Handled = true;
-                }};
+                }
+            };
 
             Spinner keySpinner = FindViewById<Spinner>(Resource.Id.key);
             keySpinner.ItemSelected += new EventHandler<AdapterView.ItemSelectedEventArgs>(keySpinner_ItemSelected);
@@ -81,27 +83,18 @@ namespace MBuilder
             var pathFile = Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryDownloads);
             var absolutePath = pathFile.AbsolutePath;
 
-            try
+            foreach (string file in Directory.GetFiles(absolutePath))
             {
-                foreach (string file in Directory.GetFiles(absolutePath))
+                if (file.Contains(".wav"))
                 {
-                    if (file.Contains(".wav"))
+                    try
                     {
-                        try
-                        {
-                            track newTrack = new track(name, file);
-                            trackList[count] = newTrack;
-                            count++;
-                        }
-                        catch { }
+                        track newTrack = new track(name, file);
+                        trackList[count] = newTrack;
+                        count++;
                     }
+                    catch { }
                 }
-            }
-            catch
-            {
-                var toast = Toast.MakeText(Application.Context, "Storage permissions required", ToastLength.Short);
-                toast.Show();
-                Finish();
             }
 
             fileStrings = new string[count];
@@ -124,12 +117,13 @@ namespace MBuilder
                         if (t.getSecond().Contains(name))
                         {
                             if (customName == "") customName = name;
+                            if (bpm == 0) want = true;
                             track theTrack = new track(customName, t.getSecond());
-                            if (bpm == 0) bpm = 100;
                             theTrack.setBPM(bpm);
                             theTrack.setDefBPM(bpm);
                             theTrack.setKey(key);
                             theTrack.setType(type);
+                            theTrack.wantCalc = want;
                             menu.theSong.setDrums(theTrack);
                             break;
                         }
@@ -150,7 +144,7 @@ namespace MBuilder
         private void keySpinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
         {
             Spinner spinner = (Spinner)sender;
-            key = string.Format ("{0}", spinner.GetItemAtPosition(e.Position));
+            key = string.Format("{0}", spinner.GetItemAtPosition(e.Position));
             key = key.ToLower();
             if (key == "N/A") key = "na";
         }

@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using Android;
 using Android.App;
 using Android.Content;
+using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
@@ -22,7 +23,7 @@ namespace MBuilder
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.bass);
-            
+
             TextView name = (TextView)FindViewById(Resource.Id.selected);
             if (menu.theSong.getBassName() != null) name.Text = menu.theSong.getBassName();
 

@@ -52,6 +52,11 @@ namespace MBuilder
             Button key = (Button)FindViewById(Resource.Id.key);
             if (menu.theSong.getInstruments() != null) key.Text = "KEY: " + menu.theSong.getInstruments().getKey().ToUpper();
             if (menu.theSong.getInstruments().getKey() == "na") key.Text = "KEY: N/A";
+            if (menu.theSong.getInstruments().source() && menu.theSong.getInstruments().wantCalc)
+            {
+                menu.theSong.getInstruments().setBPM(menu.theSong.getInstruments().getCalcBPM());
+                menu.theSong.getInstruments().setDefBPM(menu.theSong.getInstruments().getCalcBPM());
+            }
         }
     }
 }

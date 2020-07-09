@@ -86,7 +86,16 @@
         android:layout_alignParentBottom="true"
         android:id="@+id/done"/>
     <TextView
-        android:text="Browsing for .wav files in local storage 'Downloads' folder.\nFiles over 1 MB may experience clipping."
+        android:text="Leave BPM blank to auto-detect"
+        android:id="@+id/autoText"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/bpmText"
+        android:layout_below="@+id/bpm"
+        android:gravity="center"
+        android:textSize="10sp" />
+    <TextView
+        android:text="Browsing for files in local storage 'Downloads' folder"
         android:id="@+id/msg"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"

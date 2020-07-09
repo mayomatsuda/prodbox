@@ -7,7 +7,7 @@ using Android.Provider;
 using Java.IO;
 using Java.Lang;
 using MBuilder;
-using Plugin.FilePicker.Abstractions;
+using NAudio.Wave;
 using System;
 using System.IO;
 
@@ -32,8 +32,11 @@ public class track
 	private SoundPool sp;
 	private int id;
 	private float ratio = 1;
+	private TimeSpan length;
+	private int calcBPM;
 
 	private bool isFromStringPath = false;
+	public bool wantCalc;
 
 	private int playid;
 
@@ -55,9 +58,12 @@ public class track
 			bpm = int.Parse(datalist[2]);
 			defBPM = bpm;
 			type = datalist[3].Remove(1);
-
-			sp = builder.Build();
-			id = sp.Load(songFile, long1, long2, 1);
+			try
+			{
+				sp = builder.Build();
+				id = sp.Load(songFile, long1, long2, 1);
+			}
+			catch (System.Exception e) { System.Diagnostics.Debug.WriteLine(e.Message); }
 		}
 	}
 
@@ -75,8 +81,23 @@ public class track
 		defBPM = 0;
 		type = null;
 
+		try
+		{
+			WaveFileReader wf = new WaveFileReader(songFileString);
+			length = wf.TotalTime;
+			calcBPM = calculateBPM();
+		}
+		catch (System.Exception e) { System.Diagnostics.Debug.WriteLine(e.Message); }
+
 		sp = builder.Build();
 		id = sp.Load(songFileString, 1);
+	}
+
+	private int calculateBPM()
+	{
+		double b = (16) / (length.TotalSeconds / 60);
+		int nb = Convert.ToInt32(b);
+		return nb;
 	}
 
 	public void load()
@@ -242,5 +263,15 @@ public class track
 	public bool exists()
 	{
 		return (songFileString != null);
+	}
+
+	public TimeSpan getLength()
+	{
+		return length;
+	}
+
+	public int getCalcBPM()
+	{
+		return calcBPM;
 	}
 }

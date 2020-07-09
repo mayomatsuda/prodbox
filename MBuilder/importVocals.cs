@@ -3,18 +3,16 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-
+using Android;
 using Android.App;
 using Android.Content;
+using Android.Content.PM;
 using Android.Database;
 using Android.OS;
 using Android.Provider;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using Java.Security;
-using Plugin.FilePicker;
-using Plugin.FilePicker.Abstractions;
 
 namespace MBuilder
 {
@@ -82,18 +80,27 @@ namespace MBuilder
             var pathFile = Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryDownloads);
             var absolutePath = pathFile.AbsolutePath;
 
-            foreach (string file in Directory.GetFiles(absolutePath))
+            try
             {
-                if (file.Contains(".wav"))
+                foreach (string file in Directory.GetFiles(absolutePath))
                 {
-                    //try
+                    if (file.Contains(".wav"))
                     {
-                        track newTrack = new track(name, file);
-                        trackList[count] = newTrack;
-                        count++;
+                        try
+                        {
+                            track newTrack = new track(name, file);
+                            trackList[count] = newTrack;
+                            count++;
+                        }
+                        catch { }
                     }
-                    //catch { }
                 }
+            }
+            catch
+            {
+                var toast = Toast.MakeText(Application.Context, "Storage permissions required", ToastLength.Short);
+                toast.Show();
+                Finish();
             }
 
             fileStrings = new string[count];
@@ -117,6 +124,7 @@ namespace MBuilder
                         {
                             if (customName == "") customName = name;
                             track theTrack = new track(customName, t.getSecond());
+                            if (bpm == 0) bpm = 100;
                             theTrack.setBPM(bpm);
                             theTrack.setDefBPM(bpm);
                             theTrack.setKey(key);

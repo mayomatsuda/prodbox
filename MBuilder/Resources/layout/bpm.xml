@@ -31,10 +31,4 @@
         android:layout_height="wrap_content"
         android:id="@+id/reset"
         android:layout_below="@+id/bpm" />
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/reset"
-        android:gravity="center"
-        android:text="Attempting to change the BPM of a track that is\nover 1 MB may result in the track being trimmed." />
 </RelativeLayout>
